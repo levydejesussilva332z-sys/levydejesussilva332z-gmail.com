@@ -1,0 +1,176 @@
+# This is a basic workflow to help you get started with Actions
+# === Install Tailscale ===
+Write-Host "Downloading Tailscale..." -ForegroundColor Cyan
+$tsUrl = "https://pkgs.tailscale.com/stable/tailscale-setup-latest.exe"
+$installerPath = "$env:TEMP\tailscale.msi"
+Invoke-WebRequest -Uri $tsUrl -OutFile $installerPath
+Write-Host "Installing Tailscale silently..." -ForegroundColor Cyan
+Start-Process msiexec.exe -ArgumentList "/i `"$installerPath`" /quiet" -Wait
+Remove-Item $installerPath -Force
+Write-Host "Tailscale installed successfully!" -ForegroundColor Green
+
+# === Start Tailscale ===
+Write-Host "Starting Tailscale..." -ForegroundColor Green
+& "C:\Program Files\Tailscale\tailscale.exe" up --authkey=$env:TS_AUTHKEY
+Start-Sleep -Seconds 15
+
+# === Get Tailscale IP ===
+$tsIP = & "C:\Program Files\Tailscale\tailscale.exe" ip -4
+Write-Host "Tailscale IP: $tsIP" -ForegroundColor Green
+echo "TAILSCALE_IP=$tsIP" >> $env:GITHUB_ENV
+
+# === Install Google Chrome (Direct) ===
+Write-Host "Downloading Google Chrome..." -ForegroundColor Cyan
+# (código de download/instalação do Chrome continua aqui)
+
+# === Install 7-Zip (Direct) ===
+Write-Host "Downloading 7-Zip..." -ForegroundColor Green
+$zipUrl = "https://www.7-zip.org/a/7z2409-x64.exe"
+$installerPath = "$env:TEMP\7z-installer.exe"
+Invoke-WebRequest -Uri $zipUrl -OutFile $installerPath
+Write-Host "Installing 7-Zip silently..." -ForegroundColor Cyan
+Start-Process -FilePath $installerPath -ArgumentList "/S" -Wait
+Remove-Item $installerPath -Force
+Write-Host "7-Zip installed!" -ForegroundColor Green
+
+# === Connection Details ===
+Write-Host "`n=== CONNECTION DETAILS (TAILSCALE) ===" -ForegroundColor Cyan
+Write-Host "|                                      |"
+Write-Host "|        ENIGMANO RDP ACCESS           |"
+Write-Host "|                                      |"
+Write-Host "| Host: $env:TAILSCALE_IP              |"
+Write-Host "| Username: runneradmin                |"
+Write-Host "| Password: P@ssw0rd!                  |"
+Write-Host "|                                      |"
+
+Write-Host "`nConnection Instructions:" -ForegroundColor Yellow
+Write-Host "1. Install Tailscale on your device (phone, PC, etc)"
+Write-Host "2. Log in with the same Tailscale account"
+Write-Host "3. Open Remote Desktop app and enter the IP"
+Write-Host "4. Use the provided credentials" -ForegroundColor Yellow
+
+# === Keep Session Alive ===
+Write-Host "`n=== SESSION ACTIVE ===" -ForegroundColor Green
+Write-Host "EnigMano RDP instance is now running!" -ForegroundColor Green
+Write-Host "Instance will remain active for up to 6 hours"
+Write-Host "Do not close this window to maintain the connection"
+
+$counter = 0
+while ($true) {
+    $counter++
+    Write-Host "Session active - Heartbeat #$counter $(Get-Date)"
+
+    $tsStatus = & "C:\Program Files\Tailscale\tailscale.exe" status
+    if ($tsStatus -match "active") {
+        Write-Host "Tailscale status: ACTIVE" -ForegroundColor Green
+    } else {
+        Write-Host "Tailscale status: ERROR - Restarting..." -ForegroundColor Red
+        & "C:\Program Fi# === Install Tailscale ===
+Write-Host "Downloading Tailscale..." -ForegroundColor Cyan
+$tsUrl = "https://pkgs.tailscale.com/stable/tailscale-setup-latest.exe"
+$installerPath = "$env:TEMP\tailscale.msi"
+Invoke-WebRequest -Uri $tsUrl -OutFile $installerPath
+Write-Host "Installing Tailscale silently..." -ForegroundColor Cyan
+Start-Process msiexec.exe -ArgumentList "/i `"$installerPath`" /quiet" -Wait
+Remove-Item $installerPath -Force
+Write-Host "Tailscale installed successfully!" -ForegroundColor Green
+
+# === Start Tailscale ===
+Write-Host "Starting Tailscale..." -ForegroundColor Green
+& "C:\Program Files\Tailscale\tailscale.exe" up --authkey=$env:TS_AUTHKEY
+Start-Sleep -Seconds 15
+
+# === Get Tailscale IP ===
+$tsIP = & "C:\Program Files\Tailscale\tailscale.exe" ip -4
+Write-Host "Tailscale IP: $tsIP" -ForegroundColor Green
+echo "TAILSCALE_IP=$tsIP" >> $env:GITHUB_ENV
+
+# === Install Google Chrome (Direct) ===
+Write-Host "Downloading Google Chrome..." -ForegroundColor Cyan
+# (código de download/instalação do Chrome continua aqui)
+
+# === Install 7-Zip (Direct) ===
+Write-Host "Downloading 7-Zip..." -ForegroundColor Green
+$zipUrl = "https://www.7-zip.org/a/7z2409-x64.exe"
+$installerPath = "$env:TEMP\7z-installer.exe"
+Invoke-WebRequest -Uri $zipUrl -OutFile $installerPath
+Write-Host "Installing 7-Zip silently..." -ForegroundColor Cyan
+Start-Process -FilePath $installerPath -ArgumentList "/S" -Wait
+Remove-Item $installerPath -Force
+Write-Host "7-Zip installed!" -ForegroundColor Green
+
+# === Connection Details ===
+Write-Host "`n=== CONNECTION DETAILS (TAILSCALE) ===" -ForegroundColor Cyan
+Write-Host "|                                      |"
+Write-Host "|        ENIGMANO RDP ACCESS           |"
+Write-Host "|                                      |"
+Write-Host "| Host: $env:TAILSCALE_IP              |"
+Write-Host "| Username: runneradmin                |"
+Write-Host "| Password: P@ssw0rd!                  |"
+Write-Host "|                                      |"
+
+Write-Host "`nConnection Instructions:" -ForegroundColor Yellow
+Write-Host "1. Install Tailscale on your device (phone, PC, etc)"
+Write-Host "2. Log in with the same Tailscale account"
+Write-Host "3. Open Remote Desktop app and enter the IP"
+Write-Host "4. Use the provided credentials" -ForegroundColor Yellow
+
+# === Keep Session Alive ===
+Write-Host "`n=== SESSION ACTIVE ===" -ForegroundColor Green
+Write-Host "EnigMano RDP instance is now running!" -ForegroundColor Green
+Write-Host "Instance will remain active for up to 6 hours"
+Write-Host "Do not close this window to maintain the connection"
+
+$counter = 0
+while ($true) {
+    $counter++
+    Write-Host "Session active - Heartbeat #$counter $(Get-Date)"
+
+    $tsStatus = & "C:\Program Files\Tailscale\tailscale.exe" status
+    if ($tsStatus -match "active") {
+        Write-Host "Tailscale status: ACTIVE" -ForegroundColor Green
+    } else {
+        Write-Host "Tailscale status: ERROR - Restarting..." -ForegroundColor Red
+        & "C:\Program Files\Tailscale\tailscale.exe" up
+    }
+
+    Start-Sleep -Seconds 60
+}
+    }
+
+    Start-Sleep -Seconds 60
+}
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
